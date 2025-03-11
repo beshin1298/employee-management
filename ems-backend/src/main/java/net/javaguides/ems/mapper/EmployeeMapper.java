@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface EmployeeMapper {
     EmployeeDTO toDTO(Employee employee);
-    Employee toEntity(Employee employeeDTO);
+    Employee toEntity(EmployeeDTO employeeDTO);
     List<EmployeeDTO> toDTOList(List<Employee> employees);
     List<Employee> toEntityList(List<EmployeeDTO> employeeDTOs);
 }
