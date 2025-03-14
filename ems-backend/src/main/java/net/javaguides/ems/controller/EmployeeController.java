@@ -7,10 +7,9 @@ import net.javaguides.ems.dto.EmployeeDTO;
 import net.javaguides.ems.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -23,5 +22,25 @@ public class EmployeeController {
         EmployeeDTO saveEmployee = employeeService.createEmployee(employeeDTO);
         return new ResponseEntity<>(saveEmployee, HttpStatus.CREATED);
     }
+    @GetMapping("{id}")
+    public ResponseEntity<EmployeeDTO> GetEmployee(@PathVariable("id") Long employeeId){
+        EmployeeDTO employeeDTO = employeeService.getEmployee(employeeId);
+        return ResponseEntity.ok(employeeDTO);
+    }
+    @GetMapping
+    public ResponseEntity<List<EmployeeDTO>> GetAllEmployee(){
+        return ResponseEntity.ok(employeeService.getAllEmployee());
+    }
 
+    @PutMapping("{id}")
+    public ResponseEntity<EmployeeDTO> UpdateEmployee(@PathVariable("id") Long employeeId,
+                                                          @RequestBody EmployeeDTO employeeDTO){
+        EmployeeDTO saveEmployee = employeeService.updateEmployee(employeeId,employeeDTO);
+        return ResponseEntity.ok(saveEmployee);
+    }
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> DeleteEmployee(@PathVariable("id") Long employeeId){
+        employeeService.deleteEmployee(employeeId);
+        return ResponseEntity.ok("Deleted employee successfully!");
+    }
 }

@@ -2,9 +2,7 @@ package net.javaguides.ems.mapper;
 
 import net.javaguides.ems.dto.EmployeeDTO;
 import net.javaguides.ems.entity.Employee;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -12,6 +10,8 @@ import java.util.List;
 public interface EmployeeMapper {
     EmployeeDTO toDTO(Employee employee);
     Employee toEntity(EmployeeDTO employeeDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Employee DtoToEntity(@MappingTarget Employee employee, EmployeeDTO employeeDTO);
     List<EmployeeDTO> toDTOList(List<Employee> employees);
     List<Employee> toEntityList(List<EmployeeDTO> employeeDTOs);
 }
